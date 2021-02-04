@@ -46,6 +46,18 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'api.clients' => [
+            'driver' => 'token',
+            'provider' => 'clients',
+            'hash' => false,
+        ],
+
+        'api.trainers' => [
+            'driver' => 'token',
+            'provider' => 'trainers',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +81,16 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Client::class,
+        ],
+
+        'trainers' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Trainer::class,
         ],
 
         // 'users' => [
