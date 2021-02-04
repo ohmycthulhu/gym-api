@@ -18,6 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/{type}/login', 'API\\AuthenticationController@login')
-    ->where('type', 'clients|trainers')
-    ->name('api.login');
+Route::group(['prefix' => '/{type}', 'where' => ['type' => 'clients|trainers']], function ($router) {
+
+    $router->post('/login', 'API\\AuthenticationController@login')
+        ->name('api.login');
+
+    $router->get('/me', 'API\\AuthenticationController@me')
+        ->name('api.me');
+});

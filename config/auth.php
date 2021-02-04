@@ -47,14 +47,14 @@ return [
             'hash' => false,
         ],
 
-        'api.clients' => [
-            'driver' => 'token',
+        'clients' => [
+            'driver' => 'jwt',
             'provider' => 'clients',
             'hash' => false,
         ],
 
-        'api.trainers' => [
-            'driver' => 'token',
+        'trainers' => [
+            'driver' => 'jwt',
             'provider' => 'trainers',
             'hash' => false,
         ],
