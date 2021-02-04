@@ -11,23 +11,24 @@ class TimeHelper
     /**
      * Check if time is in right format
      *
-     * @param string $time
+     * @param ?string $time
      *
      * @return bool
      */
-    public static function isTimeValid(string $time): bool {
-        return preg_match(self::TIME_REGEX, $time);
+    public static function isTimeValid(?string $time): bool {
+        return $time ? preg_match(self::TIME_REGEX, $time) : false;
     }
 
     /**
      * Finds difference in minutes between times
      *
-     * @param string $t1
-     * @param string $t2
+     * @param ?string $t1
+     * @param ?string $t2
      *
      * @return integer
     */
-    public static function timeDiff(string $t1, string $t2): int {
+    public static function timeDiff(?string $t1, ?string $t2): int {
+        if (!$t1 || !$t2) return 0;
         return self::timeInMinutes($t1) - self::timeInMinutes($t2);
     }
 

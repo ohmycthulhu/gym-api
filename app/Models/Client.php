@@ -22,11 +22,11 @@ class Client extends Authenticatable implements JWTSubject
     ];
 
     public function appointments(): HasMany {
-        return $this->hasMany(AppointmentData::class, 'user_id', 'id');
+        return $this->hasMany(AppointmentData::class, 'client_id', 'id');
     }
 
     public function initializedAppointments(): HasMany {
-        return $this->hasMany(Appointment::class, 'user_id', 'id');
+        return $this->hasMany(Appointment::class, 'client_id', 'id');
     }
 
     /**

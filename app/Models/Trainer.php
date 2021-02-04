@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Appointments\Appointment;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +24,13 @@ class Trainer extends Authenticatable implements JWTSubject
 
     public function appointments(): HasMany {
         return $this->hasMany(Appointment::class, 'trainer_id', 'id');
+    }
+
+    public function weekAppointments(): HasMany {
+        $from = date('Y-m-d');
+        $to = Carbon::now()->add('days', 7)->format('Y-m-d');
+        return $this->appointments()->where('date', '>=', $from)
+            ->where('date', "<=", $to);
     }
 
     /**

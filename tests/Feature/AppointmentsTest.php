@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Client;
+use App\Models\Trainer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -10,41 +12,42 @@ class AppointmentsTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-
-        /* TODO: Seed the database */
-    }
-
     /**
      * A feature test to get trainers information
      *
      * @return void
     */
-    public function testTrainersExistence() {
-        /* TODO: Implement the method */
-        // Send request and check whether response is empty or not
+    public function testTrainersPages() {
+        $trainers = factory(Trainer::class, 10)->create();
+        $this->checkRoute(route('trainers'));
+        foreach ($trainers as $trainer) {
+            $this->checkRoute(route('trainers.appointments', ['trainerId' => $trainer->id]));
+            $this->checkRoute(route('trainers.schedule', ['trainerId' => $trainer->id]));
+        }
     }
 
     /**
-     * A basic feature test example.
+     * A feature test to test clients
      *
      * @return void
-     */
-    public function testAppointments()
-    {
-        /* TODO: Implement the method */
-        // Send request to check if trainer is free in given time
+    */
+    public function testClientsPages() {
+        $clients = factory(Client::class, 10)->create();
+        foreach ($clients as $client) {
+            $this->checkRoute(route('clients.appointments', ['clientId' => $client->id]));
+        }
+    }
 
-        // Randomly book the time
+    /**
+     * Protected function test route
+     *
+     * @param string $route
+     *
+     * @return void
+    */
+    protected function checkRoute(string $route) {
+        $response = $this->get($route);
 
-        // Check if trainer is still free
-
-        // Check if user can book time that overlaps with current time
-
-        // Cancel the appointment
-
-        // Book again
+        $response->assertStatus(200);
     }
 }

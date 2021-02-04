@@ -24,12 +24,12 @@ class CreateAppointmentsTable extends Migration
                 ->on('trainers')
                 ->onDelete('cascade');
 
-            $table->foreignId('user_id')
+            $table->foreignId('client_id')
                 ->references('id')
-                ->on('users')
+                ->on('clients')
                 ->onDelete('cascade');
 
-            $table->string('users_list')
+            $table->string('clients_list')
                 ->index()
                 ->comment('Users list in |{id1}|{id2}|...| format to improve the speed of lookups');
 
